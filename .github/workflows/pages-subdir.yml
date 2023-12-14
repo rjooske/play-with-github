@@ -1,0 +1,35 @@
+name: deploy inside a subdirectory on pr
+on:
+  pull_request:
+    types: [opened, edited]
+jobs:
+  # check-bats-version:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "14"
+  #     - run: npm install -g bats
+  #     - run: bats -v
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy-pages-step.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          echo "${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+          echo "$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_OUTPUT"
+          echo "" >> "$GITHUB_OUTPUT"
+          echo "$(git log -n 1)" >> "$GITHUB_OUTPUT"
+      # - uses: peaceiris/actions-gh-pages@v3
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./public
