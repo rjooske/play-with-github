@@ -18,21 +18,21 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - env:
-          PR_NUMBER: ${{ github.event.number }}
-        run: |
-          echo "${PR_NUMBER}" >> out
-          echo "$(git rev-parse --abbrev-ref HEAD)" >> out
-          echo "" >> out
-          echo "$(git log -n 1)" >> out
-      - uses: actions/upload-artifact@v3
         with:
-          name: out
-          path: out
+          ref: ${{ github.head_ref }}
+      - run: |
+          git log -n 1
+      # - env:
+      #     PR_NUMBER: ${{ github.event.number }}
+      #   run: |
+      #     echo "${PR_NUMBER}" >> out
+      #     echo "$(git rev-parse --abbrev-ref HEAD)" >> out
+      #     echo "" >> out
+      #     echo "$(git log -n 1)" >> out
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: out
+      #     path: out
       # - uses: peaceiris/actions-gh-pages@v3
       #   with:
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
