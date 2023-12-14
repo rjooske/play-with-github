@@ -18,8 +18,12 @@ jobs:
           SUBDIR: __PR${{ github.event.number }}__
         run: |
           mv public "$SUBDIR"
+          ls -lah
           mkdir public
+          ls -lah
           mv "$SUBDIR" public
+          ls -lah
+          ls -lah public
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
