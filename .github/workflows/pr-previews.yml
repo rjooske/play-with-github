@@ -18,8 +18,6 @@ jobs:
       - env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
-          git config --global user.email "rjooske@gmail.com"
-          git config --global user.name "Ryosuke Takahashi"
           git clone --depth 1 git@github.com:rjooske/play-with-github2.git
           cd play-with-github2
           mv ../public "${PR_NUMBER}"
