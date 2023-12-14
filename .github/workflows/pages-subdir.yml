@@ -21,10 +21,14 @@ jobs:
       - env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
-          echo "${PR_NUMBER}" >> "$GITHUB_OUTPUT"
-          echo "$(git rev-parse --abbrev-ref HEAD)" >> "$GITHUB_OUTPUT"
-          echo "" >> "$GITHUB_OUTPUT"
-          echo "$(git log -n 1)" >> "$GITHUB_OUTPUT"
+          echo "${PR_NUMBER}" >> out
+          echo "$(git rev-parse --abbrev-ref HEAD)" >> out
+          echo "" >> out
+          echo "$(git log -n 1)" >> out
+      - uses: actions/upload-artifact@v3
+        with:
+          name: out
+          path: out
       # - uses: peaceiris/actions-gh-pages@v3
       #   with:
       #     github_token: ${{ secrets.GITHUB_TOKEN }}
