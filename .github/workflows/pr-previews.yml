@@ -8,13 +8,9 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - uses: actions/checkout@v4
         with:
-          path: main
+          path: play-with-github
           ref: ${{ github.event.pull_request.head.ref }}
       - uses: actions/checkout@v4
         with:
@@ -23,5 +19,9 @@ jobs:
       - env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
-          which tree && tree
-          ls -lahR
+          rm -rf "play-with-github2/${PR_NUMBER}"
+          mv play-with-github/public play-with-github2/${PR_NUMBER}
+          cd play-with-github2
+          git add .
+          git commit -m "PR#${PR_NUMBER}"
+          git push
