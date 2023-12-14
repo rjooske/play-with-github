@@ -21,8 +21,9 @@ jobs:
           git config --global user.email "rjooske@gmail.com"
           git config --global user.name "Ryosuke Takahashi"
           git clone --depth 1 git@github.com:rjooske/play-with-github2.git
+          hash=$(git rev-parse HEAD)
           cd play-with-github2
           mv ../public "${PR_NUMBER}"
           git add .
-          git commit -m "PR#${PR_NUMBER} $(git rev-parse HEAD)"
+          git commit -m "PR#${PR_NUMBER} ${hash}"
           git push
