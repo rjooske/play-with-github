@@ -13,11 +13,11 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
       - env:
           PR_NUMBER: ${{ github.event.number }}
+          GITHUB_TOKEN: ${{ github.secrets.PAT }}
         run: |
-          mkdir -p publish_dir/__pr_previews__
-          mv public publish_dir/__pr_previews__/"$PR_NUMBER"
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: publish_dir
-          keep_files: true
+          git clone --depth 1 https://github.com/rjooske/play-with-github2
+          cd play-with-github2
+          mv ../public "${PR_NUMBER}"
+          git add .
+          git commit -m "PR#${PR_NUMBER} $(git rev-parse HEAD)"
+          git push
