@@ -23,6 +23,7 @@ jobs:
           git clone --depth 1 git@github.com:rjooske/play-with-github2.git
           hash=$(git rev-parse HEAD)
           cd play-with-github2
+          rm -rf "${PR_NUMBER}"
           mv ../public "${PR_NUMBER}"
           git add .
           git commit -m "PR#${PR_NUMBER} ${hash}"
