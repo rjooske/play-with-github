@@ -22,4 +22,5 @@ jobs:
           mv ../public "${PR_NUMBER}"
           git add .
           git commit -m "PR#${PR_NUMBER} $(git rev-parse HEAD)"
+          git remote -v
           git push
