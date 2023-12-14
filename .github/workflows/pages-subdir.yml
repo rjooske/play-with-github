@@ -16,9 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy-pages-step.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - env:
