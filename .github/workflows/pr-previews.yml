@@ -13,11 +13,11 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
       - env:
           PR_NUMBER: ${{ github.event.number }}
-          GITHUB_TOKEN: ${{ github.secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           git config --global user.email "rjooske@gmail.com"
           git config --global user.name "Ryosuke Takahashi"
-          git clone --depth 1 git@github.com:rjooske/play-with-github2.git
+          git clone --depth 1 https://github.com/rjooske/play-with-github2
           cd play-with-github2
           mv ../public "${PR_NUMBER}"
           git add .
