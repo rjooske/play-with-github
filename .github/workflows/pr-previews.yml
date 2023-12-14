@@ -14,17 +14,14 @@ jobs:
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - uses: actions/checkout@v4
         with:
+          path: main
           ref: ${{ github.event.pull_request.head.ref }}
+      - uses: actions/checkout@v4
+        with:
+          repository: rjooske/play-with-github2
+          path: play-with-github2
       - env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
-          git config --global user.email "rjooske@gmail.com"
-          git config --global user.name "Ryosuke Takahashi"
-          git clone --depth 1 git@github.com:rjooske/play-with-github2.git
-          hash=$(git rev-parse HEAD)
-          cd play-with-github2
-          rm -rf "${PR_NUMBER}"
-          mv ../public "${PR_NUMBER}"
-          git add .
-          git commit -m "PR#${PR_NUMBER} ${hash}"
-          git push
+          which tree && tree
+          ls -lahR
