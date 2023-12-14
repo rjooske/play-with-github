@@ -3,15 +3,6 @@ on:
   pull_request:
     types: [opened, synchronize]
 jobs:
-  # check-bats-version:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v3
-  #       with:
-  #         node-version: "14"
-  #     - run: npm install -g bats
-  #     - run: bats -v
   publish:
     runs-on: ubuntu-latest
     permissions:
@@ -20,20 +11,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
-      - run: |
-          git log -n 1
-      # - env:
-      #     PR_NUMBER: ${{ github.event.number }}
-      #   run: |
-      #     echo "${PR_NUMBER}" >> out
-      #     echo "$(git rev-parse --abbrev-ref HEAD)" >> out
-      #     echo "" >> out
-      #     echo "$(git log -n 1)" >> out
-      # - uses: actions/upload-artifact@v3
-      #   with:
-      #     name: out
-      #     path: out
-      # - uses: peaceiris/actions-gh-pages@v3
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./public
+          # ref: ${{ github.event.pull_request.head.ref }}
+      - env:
+          SUBDIR: __PR${{ github.event.number }}__
+        run: |
+          mv public "$SUBDIR"
+          mkdir public
+          mv "$SUBDIR" public
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
+          keep_files: true
