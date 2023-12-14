@@ -1,7 +1,7 @@
 name: deploy inside a subdirectory on pr
 on:
   pull_request:
-    types: [opened, edited]
+    types: [opened, synchronize]
 jobs:
   # check-bats-version:
   #   runs-on: ubuntu-latest
