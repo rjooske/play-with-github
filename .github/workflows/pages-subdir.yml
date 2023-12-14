@@ -15,7 +15,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      pages: write
       id-token: write
     environment:
       name: github-pages
