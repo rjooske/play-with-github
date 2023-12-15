@@ -28,3 +28,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
           message: preview PR#${{ github.event.number }}
+      - uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: "Preview: https://rjooske.github.io/play-with-github/__pr_previews__/${{ github.event.number }}"
