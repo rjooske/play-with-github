@@ -1,6 +1,7 @@
 name: Test commit and push
 on:
-  push: [main]
+  push:
+    branches: [main]
 jobs:
   test-commit-and-push:
     runs-on: ubuntu-latest
