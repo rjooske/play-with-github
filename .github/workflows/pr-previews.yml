@@ -22,8 +22,8 @@ jobs:
           mkdir gh-pages/__pr_previews__
           rm -rf "gh-pages/__pr_previews__/${PR_NUMBER}"
           mv pr/public "gh-pages/__pr_previews__/${PR_NUMBER}"
-          cd gh-pages
-      - uses: actions-js/push@master
+      - working-directory: gh-pages
+        uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
