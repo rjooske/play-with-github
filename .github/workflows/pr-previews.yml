@@ -19,8 +19,9 @@ jobs:
       - env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
+          mkdir gh-pages/__pr_previews__
           rm -rf "gh-pages/__pr_previews__/${PR_NUMBER}"
-          mv pr/public gh-pages/__pr_previews__/${PR_NUMBER}
+          mv pr/public "gh-pages/__pr_previews__/${PR_NUMBER}"
           cd gh-pages
       - uses: actions-js/push@master
         with:
