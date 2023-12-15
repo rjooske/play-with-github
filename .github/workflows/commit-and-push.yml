@@ -1,0 +1,18 @@
+name: Test commit and push
+on:
+  push: [main]
+jobs:
+  test-commit-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: bar
+      - run: |
+          find . -depth 1 -not -name '.git' -exec rm -rf {} +
+          git log -n 1 main > README.txt
+      - uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
