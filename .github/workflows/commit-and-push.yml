@@ -13,7 +13,7 @@ jobs:
           ref: bar
       - run: |
           find . -mindepth 1 -maxdepth 1  -not -name '.git' -exec rm -rf {} +
-          git log -n 1 main > README.txt
+          echo "$RANDOM" > README.txt
       - uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
